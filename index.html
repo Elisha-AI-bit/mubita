@@ -28,39 +28,40 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 1rem;
       backdrop-filter: blur(12px);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glass:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+      box-shadow: 0 0 30px rgba(0, 246, 255, 0.4);
     }
     .neon-text {
-      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+      text-shadow: 0 0 10px #00f6ff, 0 0 20px #00f6ff, 0 0 30px #00f6ff;
     }
     .tech-chip {
-      background: rgba(255, 0, 255, 0.1);
-      border: 1px solid #ff00ff;
+      background: rgba(0, 246, 255, 0.1);
+      border: 1px solid #00f6ff;
       transition: background 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
     }
     .tech-chip:hover {
-      background: rgba(255, 0, 255, 0.3);
+      background: rgba(0, 246, 255, 0.3);
       transform: scale(1.1);
     }
     .project-item, .event-item {
-      border-left: 3px solid #ff00ff;
+      border-left: 3px solid #8b00ff;
       padding-left: 1rem;
       transition: background 0.3s ease;
     }
     .project-item:hover, .event-item:hover {
-      background: rgba(255, 0, 255, 0.1);
+      background: rgba(139, 0, 255, 0.1);
     }
     .nav-link {
       position: relative;
       transition: color 0.3s ease;
     }
     .nav-link:hover {
-      color: #ff00ff;
+      color: #00f6ff;
     }
     .nav-link::after {
       content: '';
@@ -69,11 +70,77 @@
       height: 2px;
       bottom: -2px;
       left: 0;
-      background: #ff00ff;
+      background: #00f6ff;
       transition: width 0.3s ease;
     }
     .nav-link:hover::after {
       width: 100%;
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal-content {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #00f6ff;
+      border-radius: 1rem;
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 0 30px rgba(0, 246, 255, 0.4);
+      animation: slideIn 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header {
+      border-bottom: 1px solid rgba(0, 246, 255, 0.3);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    .modal-body {
+      flex-grow: 1;
+    }
+    .modal-footer {
+      border-top: 1px solid rgba(0, 246, 255, 0.3);
+      padding-top: 1rem;
+      margin-top: 1rem;
+      text-align: right;
+    }
+    .modal-close {
+      background: none;
+      border: 1px solid #00f6ff;
+      color: #00f6ff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s ease;
+    }
+    .modal-close:hover {
+      background: rgba(0, 246, 255, 0.3);
+    }
+    .modal-project {
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .modal-project:hover {
+      transform: translateX(5px);
+      background: rgba(139, 0, 255, 0.1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     @keyframes glitch {
       0% { transform: translate(0); }
@@ -106,6 +173,27 @@
 
     <!-- Router View -->
     <router-view></router-view>
+
+    <!-- Modal for Tech Stack Details -->
+    <div v-if="showModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="text-2xl font-semibold neon-text">{{ selectedTech.name }}</h3>
+        </div>
+        <div class="modal-body">
+          <p class="mb-4"><strong>Experience:</strong> {{ selectedTech.experience }}</p>
+          <p class="mb-4"><strong>Related Projects:</strong></p>
+          <ul class="space-y-3">
+            <li v-for="project in selectedTech.projects" :key="project.name" class="modal-project project-item p-2">
+              <strong>{{ project.name }}</strong>: {{ project.description }}
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button @click="closeModal" class="modal-close">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Vue Components -->
@@ -119,7 +207,7 @@
         <div>
           <header class="text-center my-12">
             <h1 class="text-5xl font-bold neon-text glitch">
-              Hi, I'm <span class="text-pink-400">Mubita Mapulanga</span>
+              Hi, I'm <span class="text-blue-400">Mubita Mapulanga</span>
             </h1>
             <h2 class="text-2xl mt-4 flicker" v-text="currentTitle"></h2>
           </header>
@@ -132,7 +220,7 @@
           <section class="glass p-8 max-w-4xl mx-auto my-12">
             <h3 class="text-2xl font-semibold mb-6 neon-text">Tech Stack</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <span v-for="tech in techStack" :key="tech" class="tech-chip px-4 py-2 rounded text-center">{{ tech }}</span>
+              <span v-for="tech in techStack" :key="tech.name" class="tech-chip px-4 py-2 rounded text-center" @click="showTechDetails(tech)">{{ tech.name }}</span>
             </div>
           </section>
           <section class="glass p-8 max-w-4xl mx-auto my-12">
@@ -145,8 +233,8 @@
           </section>
           <section class="glass p-8 max-w-4xl mx-auto my-12 text-center">
             <h3 class="text-2xl font-semibold mb-4 neon-text">Contact Me</h3>
-            <p>Email: <a href="mailto:mubita@example.com" class="text-pink-400 hover:underline">mubita@example.com</a></p>
-            <p>GitHub: <a href="https://github.com/yourusername" class="text-pink-400 hover:underline">github.com/yourusername</a></p>
+            <p>Email: <a href="mailto:mubita@example.com" class="text-blue-400 hover:underline">mubita@example.com</a></p>
+            <p>GitHub: <a href="https://github.com/yourusername" class="text-blue-400 hover:underline">github.com/yourusername</a></p>
           </section>
         </div>
       `,
@@ -154,7 +242,68 @@
         return {
           titles: ['AI Developer', 'App Builder', 'Tech Innovator', 'Smart Systems Engineer'],
           currentTitleIndex: 0,
-          techStack: ['Flutter', 'Firebase', 'Java', 'React Native', 'Vue.js', 'Python', 'HTML/CSS/JS', 'Motoko'],
+          techStack: [
+            {
+              name: 'Flutter',
+              experience: '3 years',
+              projects: [
+                { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+                { name: 'Smart Water Tank Monitoring', description: 'IoT system using ESP8266, sensors, and a mobile app.' },
+              ],
+            },
+            {
+              name: 'Firebase',
+              experience: '3 years',
+              projects: [
+                { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+                { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
+                { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
+              ],
+            },
+            {
+              name: 'Java',
+              experience: '4 years',
+              projects: [
+                { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
+              ],
+            },
+            {
+              name: 'React Native',
+              experience: '2 years',
+              projects: [
+                { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
+              ],
+            },
+            {
+              name: 'Vue.js',
+              experience: '2 years',
+              projects: [
+                { name: 'Personal Portfolio', description: 'This interactive portfolio website.' },
+              ],
+            },
+            {
+              name: 'Python',
+              experience: '5 years',
+              projects: [
+                { name: 'Smart Doctor', description: 'Health data integration system with wearable data and EHR.' },
+              ],
+            },
+            {
+              name: 'HTML/CSS/JS',
+              experience: '5 years',
+              projects: [
+                { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+                { name: 'Personal Portfolio', description: 'This interactive portfolio website.' },
+              ],
+            },
+            {
+              name: 'Motoko',
+              experience: '1 year',
+              projects: [
+                { name: 'Decentralized App Prototype', description: 'A prototype for a decentralized application using Motoko.' },
+              ],
+            },
+          ],
           projects: [
             { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
             { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
@@ -177,6 +326,10 @@
           setInterval(() => {
             this.currentTitleIndex = (this.currentTitleIndex + 1) % this.titles.length;
           }, 3000);
+        },
+        showTechDetails(tech) {
+          this.$root.selectedTech = tech;
+          this.$root.showModal = true;
         },
       },
     };
@@ -237,7 +390,20 @@
     });
 
     // Vue App
-    const app = createApp({});
+    const app = createApp({
+      data() {
+        return {
+          showModal: false,
+          selectedTech: null,
+        };
+      },
+      methods: {
+        closeModal() {
+          this.showModal = false;
+          this.selectedTech = null;
+        },
+      },
+    });
     app.use(router);
     app.mount('#app');
 
@@ -245,11 +411,11 @@
     particlesJS('particles-js', {
       particles: {
         number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: '#ff00ff' },
+        color: { value: '#00f6ff' },
         shape: { type: 'circle' },
         opacity: { value: 0.5, random: true },
         size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: '#00f6ff', opacity: 0.4, width: 1 },
+        line_linked: { enable: true, distance: 150, color: '#8b00ff', opacity: 0.4, width: 1 },
         move: { enable: true, speed: 2, direction: 'none', random: true },
       },
       interactivity: {
