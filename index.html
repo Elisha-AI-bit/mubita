@@ -115,7 +115,6 @@
       padding: 0.75rem 0;
     }
     .nav-link {
-      displayေ: none;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -247,6 +246,10 @@
       color: #00f6ff;
       text-decoration: underline;
     }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -273,6 +276,76 @@
     .flicker {
       animation: flicker 2s infinite;
     }
+
+    /* General styles for responsiveness */
+    body {
+      padding: 1rem;
+    }
+
+    .glass {
+      width: 100%;
+      max-width: 90%;
+      margin: 1rem auto;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .nav-tabs {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-link {
+      font-size: 0.8rem;
+    }
+
+    /* Media query for small screens (mobile) */
+    @media (max-width: 768px) {
+      .text-4xl {
+        font-size: 1.5rem;
+      }
+
+      .title-glass {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .nav-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gallery-img {
+        height: 150px;
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Media query for very small screens (e.g., phones) */
+    @media (max-width: 480px) {
+      .glass {
+        padding: 1rem;
+      }
+
+      .nav-link {
+        font-size: 0.7rem;
+      }
+
+      .gallery-img {
+        height: 120px;
+      }
+    }
   </style>
 </head>
 <body class="p-6">
@@ -288,7 +361,7 @@
     <div class="nav-tabs">
       <a href="#/" class="nav-link active" data-route="/">
         <span class="nav-icon">👤</span>
-        <span>Profile</span>
+        <span>Home</span>
       </a>
       <a href="#/skills" class="nav-link" data-route="/skills">
         <span class="nav-icon">🔧</span>
@@ -296,11 +369,11 @@
       </a>
       <a href="#/career" class="nav-link" data-route="/career">
         <span class="nav-icon">📅</span>
-        <span>Career</span>
+        <span>Events</span>
       </a>
       <a href="#/awards" class="nav-link" data-route="/awards">
         <span class="nav-icon">⭐</span>
-        <span>Awards</span>
+        <span>Gallery</span>
       </a>
     </div>
   </header>
@@ -339,7 +412,7 @@
     </div>
 
     <!-- Modal for Gallery Image -->
-    <div v-if="showGalleryModal" class="modal">
+    <div v-if="showGalleryModal && selectedImage" class="modal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="text-2xl font-semibold neon-text">{{ selectedImage.title }}</h3>
@@ -352,6 +425,10 @@
           <button @click="closeGalleryModal" class="modal-close">Close</button>
         </div>
       </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Content -->
     </div>
   </div>
 
@@ -436,8 +513,8 @@
         },
         methods: {
           showImageDetails(image) {
-            this.$root.selectedImage = image;
-            this.$root.showGalleryModal = true;
+            this.$root.selectedImage = image; // Set the selected image
+            this.$root.showGalleryModal = true; // Show the modal
           },
         },
       };
@@ -598,8 +675,8 @@
         },
         methods: {
           showImageDetails(image) {
-            this.$root.selectedImage = image;
-            this.$root.showGalleryModal = true;
+            this.$root.selectedImage = image; // Set the selected image
+            this.$root.showGalleryModal = true; // Show the modal
           },
         },
       };
@@ -649,8 +726,8 @@
         },
         methods: {
           showImageDetails(image) {
-            this.$root.selectedImage = image;
-            this.$root.showGalleryModal = true;
+            this.$root.selectedImage = image; // Set the selected image
+            this.$root.showGalleryModal = true; // Show the modal
           },
         },
       };
@@ -683,14 +760,13 @@
       });
 
       // Vue App
-      let appMounted = false;
       const app = createApp({
         data() {
           return {
             showModal: false,
             selectedTech: null,
             showGalleryModal: false,
-            selectedImage: null,
+            selectedImage: null, // Initialize selectedImage as null
             isMounted: false,
           };
         },
@@ -701,13 +777,12 @@
           },
           closeGalleryModal() {
             this.showGalleryModal = false;
-            this.selectedImage = null;
+            this.selectedImage = null; // Reset selectedImage when closing the modal
           },
         },
         mounted() {
           try {
             this.isMounted = true;
-            appMounted = true;
             console.log('Vue app mounted successfully.');
           } catch (error) {
             console.error('Failed to mount Vue app:', error);
@@ -719,8 +794,6 @@
       // Error Handling for Router
       router.onError((error) => {
         console.error('Router error:', error);
-        appMounted = false;
-        app.isMounted = false;
       });
 
       // Mount the App
@@ -729,7 +802,6 @@
         app.mount('#app');
       } catch (error) {
         console.error('Error mounting app:', error);
-        appMounted = false;
       }
 
       // Particles.js Initialization
