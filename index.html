@@ -5,68 +5,259 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Techy Portfolio</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@4.0.13/dist/vue-router.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a1a;
+      color: #e0e0e0;
+      font-family: 'Roboto Mono', monospace;
+      overflow-x: hidden;
+    }
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
     .glass {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 1rem;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+    }
+    .neon-text {
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    }
+    .tech-chip {
+      background: rgba(255, 0, 255, 0.1);
+      border: 1px solid #ff00ff;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .tech-chip:hover {
+      background: rgba(255, 0, 255, 0.3);
+      transform: scale(1.1);
+    }
+    .project-item, .event-item {
+      border-left: 3px solid #ff00ff;
+      padding-left: 1rem;
+      transition: background 0.3s ease;
+    }
+    .project-item:hover, .event-item:hover {
+      background: rgba(255, 0, 255, 0.1);
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover {
+      color: #ff00ff;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background: #ff00ff;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+    .glitch:hover {
+      animation: glitch 0.3s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .flicker {
+      animation: flicker 2s infinite;
     }
   </style>
 </head>
 <body class="p-4">
-  <header class="text-center my-8">
-    <h1 class="text-4xl font-bold">Hi, I'm <span class="text-blue-400"></span>Mubita Mapulanga</h1>
-    <h2 class="text-2xl mt-2" id="typed"></h2>
-  </header>
+  <div id="particles-js"></div>
+  <div id="app" class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass p-4 max-w-4xl mx-auto mb-12 flex justify-center space-x-8">
+      <router-link to="/" class="nav-link text-lg">Home</router-link>
+      <router-link to="/events" class="nav-link text-lg">Events</router-link>
+    </nav>
 
-  <section class="glass p-6 max-w-4xl mx-auto my-8">
-    <h3 class="text-xl font-semibold mb-2">About Me</h3>
-    <p>I am an AI developer passionate about building intelligent, responsive, and impactful systems. From mobile apps to smart systems and decentralized platforms, I use tech to solve real-world problems.</p>
-  </section>
+    <!-- Router View -->
+    <router-view></router-view>
+  </div>
 
-  <section class="glass p-6 max-w-4xl mx-auto my-8">
-    <h3 class="text-xl font-semibold mb-4">Tech Stack</h3>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <span class="bg-gray-800 px-4 py-2 rounded">Flutter</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">Firebase</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">Java</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">React Native</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">Vue.js</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">Python</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">HTML/CSS/JS</span>
-      <span class="bg-gray-800 px-4 py-2 rounded">Motoko</span>
-    </div>
-  </section>
-
-  <section class="glass p-6 max-w-4xl mx-auto my-8">
-    <h3 class="text-xl font-semibold mb-4">Featured Projects</h3>
-    <ul class="space-y-4">
-      <li><strong>Ulimi</strong>: A smart agri-platform for vendor content, crop sales, weather, and news.</li>
-      <li><strong>LookupPlant</strong>: Android app for plant info with Java and Firebase.</li>
-      <li><strong>Emergency Response App</strong>: Real-time alerts and communication system using React Native and Firebase.</li>
-      <li><strong>Smart Water Tank Monitoring</strong>: IoT system using ESP8266, sensors, and a mobile app.</li>
-      <li><strong>Smart Doctor</strong>: Health data integration system with wearable data and EHR.</li>
-    </ul>
-  </section>
-
-  <section class="glass p-6 max-w-4xl mx-auto my-8 text-center">
-    <h3 class="text-xl font-semibold mb-2">Contact Me</h3>
-    <p>Email: your.email@example.com</p>
-    <p>GitHub: github.com/yourusername</p>
-  </section>
-
+  <!-- Vue Components -->
   <script>
-    new Typed('#typed', {
-      strings: ['AI Developer', 'App Builder', 'Tech Innovator', 'Smart Systems Engineer'],
-      typeSpeed: 50,
-      backSpeed: 25,
-      loop: true
+    const { createApp } = Vue;
+    const { createRouter, createWebHistory } = VueRouter;
+
+    // Home Component
+    const Home = {
+      template: `
+        <div>
+          <header class="text-center my-12">
+            <h1 class="text-5xl font-bold neon-text glitch">
+              Hi, I'm <span class="text-pink-400">Mubita Mapulanga</span>
+            </h1>
+            <h2 class="text-2xl mt-4 flicker" v-text="currentTitle"></h2>
+          </header>
+          <section class="glass p-8 max-w-4xl mx-auto my-12">
+            <h3 class="text-2xl font-semibold mb-4 neon-text">About Me</h3>
+            <p class="text-lg">
+              I am an AI developer passionate about building intelligent, responsive, and impactful systems. From mobile apps to smart systems and decentralized platforms, I use tech to solve real-world problems.
+            </p>
+          </section>
+          <section class="glass p-8 max-w-4xl mx-auto my-12">
+            <h3 class="text-2xl font-semibold mb-6 neon-text">Tech Stack</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <span v-for="tech in techStack" :key="tech" class="tech-chip px-4 py-2 rounded text-center">{{ tech }}</span>
+            </div>
+          </section>
+          <section class="glass p-8 max-w-4xl mx-auto my-12">
+            <h3 class="text-2xl font-semibold mb-6 neon-text">Featured Projects</h3>
+            <ul class="space-y-4">
+              <li v-for="project in projects" :key="project.name" class="project-item p-2">
+                <strong>{{ project.name }}</strong>: {{ project.description }}
+              </li>
+            </ul>
+          </section>
+          <section class="glass p-8 max-w-4xl mx-auto my-12 text-center">
+            <h3 class="text-2xl font-semibold mb-4 neon-text">Contact Me</h3>
+            <p>Email: <a href="mailto:mubita@example.com" class="text-pink-400 hover:underline">mubita@example.com</a></p>
+            <p>GitHub: <a href="https://github.com/yourusername" class="text-pink-400 hover:underline">github.com/yourusername</a></p>
+          </section>
+        </div>
+      `,
+      data() {
+        return {
+          titles: ['AI Developer', 'App Builder', 'Tech Innovator', 'Smart Systems Engineer'],
+          currentTitleIndex: 0,
+          techStack: ['Flutter', 'Firebase', 'Java', 'React Native', 'Vue.js', 'Python', 'HTML/CSS/JS', 'Motoko'],
+          projects: [
+            { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+            { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
+            { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
+            { name: 'Smart Water Tank Monitoring', description: 'IoT system using ESP8266, sensors, and a mobile app.' },
+            { name: 'Smart Doctor', description: 'Health data integration system with wearable data and EHR.' },
+          ],
+        };
+      },
+      computed: {
+        currentTitle() {
+          return this.titles[this.currentTitleIndex];
+        },
+      },
+      mounted() {
+        this.startTypingEffect();
+      },
+      methods: {
+        startTypingEffect() {
+          setInterval(() => {
+            this.currentTitleIndex = (this.currentTitleIndex + 1) % this.titles.length;
+          }, 3000);
+        },
+      },
+    };
+
+    // Events Component
+    const Events = {
+      template: `
+        <div>
+          <header class="text-center my-12">
+            <h1 class="text-5xl font-bold neon-text glitch">Tech Events</h1>
+            <p class="text-lg mt-4 flicker">Upcoming and past tech events I've attended or organized</p>
+          </header>
+          <section class="glass p-8 max-w-4xl mx-auto my-12">
+            <h3 class="text-2xl font-semibold mb-6 neon-text">Event Highlights</h3>
+            <ul class="space-y-4">
+              <li v-for="event in events" :key="event.title" class="event-item p-2">
+                <strong>{{ event.title }}</strong> ({{ event.date }}): {{ event.description }}
+              </li>
+            </ul>
+          </section>
+        </div>
+      `,
+      data() {
+        return {
+          events: [
+            {
+              title: 'AI Summit 2025',
+              date: 'March 15, 2025',
+              description: 'Presented a talk on AI-driven agricultural platforms and networked with global AI innovators.',
+            },
+            {
+              title: 'IoT Hackathon',
+              date: 'January 20, 2025',
+              description: 'Led a team to develop a smart water monitoring system, winning first place.',
+            },
+            {
+              title: 'Decentralized Tech Meetup',
+              date: 'November 10, 2024',
+              description: 'Organized a meetup to discuss Motoko and decentralized app development.',
+            },
+            {
+              title: 'Mobile Dev Conference',
+              date: 'September 5, 2024',
+              description: 'Showcased LookupPlant and discussed cross-platform development with Flutter and React Native.',
+            },
+          ],
+        };
+      },
+    };
+
+    // Router Setup
+    const router = createRouter({
+      history: createWebHistory(),
+      routes: [
+        { path: '/', component: Home },
+        { path: '/events', component: Events },
+      ],
+    });
+
+    // Vue App
+    const app = createApp({});
+    app.use(router);
+    app.mount('#app');
+
+    // Particles.js Initialization
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#ff00ff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#00f6ff', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: true },
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } },
+      },
+      retina_detect: true,
     });
   </script>
 </body>
