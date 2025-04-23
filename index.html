@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Techy Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="p-4">
+  <header class="text-center my-8">
+    <h1 class="text-4xl font-bold">Hi, I'm <span class="text-blue-400"></span>Mubita Mapulanga</h1>
+    <h2 class="text-2xl mt-2" id="typed"></h2>
+  </header>
+
+  <section class="glass p-6 max-w-4xl mx-auto my-8">
+    <h3 class="text-xl font-semibold mb-2">About Me</h3>
+    <p>I am an AI developer passionate about building intelligent, responsive, and impactful systems. From mobile apps to smart systems and decentralized platforms, I use tech to solve real-world problems.</p>
+  </section>
+
+  <section class="glass p-6 max-w-4xl mx-auto my-8">
+    <h3 class="text-xl font-semibold mb-4">Tech Stack</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <span class="bg-gray-800 px-4 py-2 rounded">Flutter</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">Firebase</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">Java</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">React Native</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">Vue.js</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">Python</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">HTML/CSS/JS</span>
+      <span class="bg-gray-800 px-4 py-2 rounded">Motoko</span>
+    </div>
+  </section>
+
+  <section class="glass p-6 max-w-4xl mx-auto my-8">
+    <h3 class="text-xl font-semibold mb-4">Featured Projects</h3>
+    <ul class="space-y-4">
+      <li><strong>Ulimi</strong>: A smart agri-platform for vendor content, crop sales, weather, and news.</li>
+      <li><strong>LookupPlant</strong>: Android app for plant info with Java and Firebase.</li>
+      <li><strong>Emergency Response App</strong>: Real-time alerts and communication system using React Native and Firebase.</li>
+      <li><strong>Smart Water Tank Monitoring</strong>: IoT system using ESP8266, sensors, and a mobile app.</li>
+      <li><strong>Smart Doctor</strong>: Health data integration system with wearable data and EHR.</li>
+    </ul>
+  </section>
+
+  <section class="glass p-6 max-w-4xl mx-auto my-8 text-center">
+    <h3 class="text-xl font-semibold mb-2">Contact Me</h3>
+    <p>Email: your.email@example.com</p>
+    <p>GitHub: github.com/yourusername</p>
+  </section>
+
+  <script>
+    new Typed('#typed', {
+      strings: ['AI Developer', 'App Builder', 'Tech Innovator', 'Smart Systems Engineer'],
+      typeSpeed: 50,
+      backSpeed: 25,
+      loop: true
+    });
+  </script>
+</body>
+</html>
