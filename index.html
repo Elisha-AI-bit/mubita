@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Techy Portfolio</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-router@4.0.13/dist/vue-router.global.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       background: #0a0a1a;
       color: #e0e0e0;
-      font-family: 'Roboto Mono', monospace;
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
     #particles-js {
@@ -24,57 +22,135 @@
       z-index: -1;
     }
     .glass {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1rem;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 1.25rem;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 246, 255, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 2rem;
+      margin: 2rem auto;
     }
     .glass:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 30px rgba(0, 246, 255, 0.4);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0, 246, 255, 0.25);
     }
     .neon-text {
-      text-shadow: 0 0 10px #00f6ff, 0 0 20px #00f6ff, 0 0 30px #00f6ff;
+      text-shadow: 0 0 8px #00f6ff, 0 0 16px #00f6ff;
+    }
+    .secondary-text {
+      color: #b0b0b0;
     }
     .tech-chip {
-      background: rgba(0, 246, 255, 0.1);
+      background: rgba(0, 246, 255, 0.15);
       border: 1px solid #00f6ff;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
       transition: background 0.3s ease, transform 0.3s ease;
       cursor: pointer;
+      text-align: center;
+      font-weight: 500;
     }
     .tech-chip:hover {
-      background: rgba(0, 246, 255, 0.3);
-      transform: scale(1.1);
+      background: rgba(0, 246, 255, 0.35);
+      transform: scale(1.05);
     }
     .project-item, .event-item {
       border-left: 3px solid #8b00ff;
-      padding-left: 1rem;
+      padding-left: 1.5rem;
       transition: background 0.3s ease;
+      padding: 1rem;
+      border-radius: 0.5rem;
     }
     .project-item:hover, .event-item:hover {
-      background: rgba(139, 0, 255, 0.1);
+      background: rgba(139, 0, 255, 0.15);
+    }
+    .header-bg {
+      background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
+      position: relative;
+      overflow: hidden;
+      padding: 3rem 0;
+    }
+    .header-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" opacity="0.1" fill="none" stroke="%2300f6ff" stroke-width="2"><path d="M20 20h60v60H20zM100 20h60v60h-60zM20 100h60v60H20zM100 100h60v60h-60z"/><circle cx="180" cy="40" r="20"/><circle cx="40" cy="140" r="20"/><path d="M180 140l20 20M200 140l-20 20"/></svg>') repeat;
+      pointer-events: none;
+    }
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid #00f6ff;
+      box-shadow: 0 0 20px rgba(0, 246, 255, 0.4);
+      object-fit: cover;
+      margin: 0 auto;
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .profile-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 246, 255, 0.6);
+    }
+    .title-glass {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 246, 255, 0.4);
+      border-radius: 2rem;
+      padding: 0.75rem 2rem;
+      backdrop-filter: blur(12px);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 4px 20px rgba(0, 246, 255, 0.2);
+    }
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding: 0.75rem 0;
     }
     .nav-link {
+      displayေ: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
       position: relative;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #b0b0b0;
+      text-decoration: none;
     }
     .nav-link:hover {
       color: #00f6ff;
+      transform: translateY(-2px);
     }
-    .nav-link::after {
+    .nav-link.active {
+      color: #00f6ff;
+    }
+    .nav-link.active::after {
       content: '';
       position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -2px;
-      left: 0;
-      background: #00f6ff;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after {
       width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, #00f6ff, #8b00ff);
+    }
+    .nav-icon {
+      font-size: 1.3rem;
+      transition: transform 0.3s ease;
+    }
+    .nav-link:hover .nav-icon {
+      transform: scale(1.1);
     }
     .modal {
       position: fixed;
@@ -82,7 +158,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -90,49 +166,86 @@
       animation: fadeIn 0.3s ease;
     }
     .modal-content {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid #00f6ff;
-      border-radius: 1rem;
-      backdrop-filter: blur(12px);
-      padding: 2rem;
-      max-width: 600px;
+      border-radius: 1.25rem;
+      backdrop-filter: blur(15px);
+      padding: 2.5rem;
+      max-width: 640px;
       width: 90%;
-      box-shadow: 0 0 30px rgba(0, 246, 255, 0.4);
+      box-shadow: 0 8px 32px rgba(0, 246, 255, 0.3);
       animation: slideIn 0.3s ease;
       display: flex;
       flex-direction: column;
     }
     .modal-header {
-      border-bottom: 1px solid rgba(0, 246, 255, 0.3);
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 246, 255, 0.4);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
     }
     .modal-body {
       flex-grow: 1;
+      font-size: 1rem;
+      line-height: 1.6;
     }
     .modal-footer {
-      border-top: 1px solid rgba(0, 246, 255, 0.3);
-      padding-top: 1rem;
-      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 246, 255, 0.4);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
       text-align: right;
     }
     .modal-close {
-      background: none;
+      background: rgba(0, 246, 255, 0.15);
       border: 1px solid #00f6ff;
       color: #00f6ff;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      transition: background 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-weight: 500;
     }
     .modal-close:hover {
-      background: rgba(0, 246, 255, 0.3);
+      background: rgba(0, 246, 255, 0.35);
+      transform: translateY(-2px);
     }
     .modal-project {
       transition: transform 0.3s ease, background 0.3s ease;
+      padding: 1rem;
+      border-radius: 0.5rem;
     }
     .modal-project:hover {
       transform: translateX(5px);
-      background: rgba(139, 0, 255, 0.1);
+      background: rgba(139, 0, 255, 0.15);
+    }
+    .gallery-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      border: 1px solid #00f6ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .gallery-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(0, 246, 255, 0.4);
+    }
+    .gallery-modal-img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 0.75rem;
+      border: 1px solid #00f6ff;
+      box-shadow: 0 8px 24px rgba(0, 246, 255, 0.4);
+    }
+    .error-message {
+      color: #e0e0e0;
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .error-message a {
+      color: #00f6ff;
+      text-decoration: underline;
     }
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -162,17 +275,47 @@
     }
   </style>
 </head>
-<body class="p-4">
+<body class="p-6">
   <div id="particles-js"></div>
-  <div id="app" class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="glass p-4 max-w-4xl mx-auto mb-12 flex justify-center space-x-8">
-      <router-link to="/" class="nav-link text-lg">Home</router-link>
-      <router-link to="/events" class="nav-link text-lg">Events</router-link>
-    </nav>
+  <!-- Static Header (Loads Immediately) -->
+  <header class="header-bg text-center">
+    <img src="logo.jpg" alt="Profile Image" class="profile-img">
+    <h1 class="text-4xl font-bold mt-4 neon-text glitch">MUBITA MAPULANGA</h1>
+    <div class="title-glass mt-4">
+      <span class="text-blue-400"></span>
+      <span>The Architect<br> Foundation of Greatness</span>
+    </div>
+    <div class="nav-tabs">
+      <a href="#/" class="nav-link active" data-route="/">
+        <span class="nav-icon">👤</span>
+        <span>Profile</span>
+      </a>
+      <a href="#/skills" class="nav-link" data-route="/skills">
+        <span class="nav-icon">🔧</span>
+        <span>Skills</span>
+      </a>
+      <a href="#/career" class="nav-link" data-route="/career">
+        <span class="nav-icon">📅</span>
+        <span>Career</span>
+      </a>
+      <a href="#/awards" class="nav-link" data-route="/awards">
+        <span class="nav-icon">⭐</span>
+        <span>Awards</span>
+      </a>
+    </div>
+  </header>
 
-    <!-- Router View -->
-    <router-view></router-view>
+  <!-- Vue App (Dynamic Content) -->
+  <div id="app" class="min-h-screen">
+    <!-- Fallback Message -->
+    <div v-if="!isMounted" class="error-message">
+      <p>It looks like the portfolio failed to load. This might be due to browser compatibility or local file restrictions.</p>
+      <p>Please try hosting the app on a server like <a href="https://vercel.com" target="_blank">Vercel</a>, or use a local development server (e.g., with Node.js or Python's http.server).</p>
+      <p>Check the console for errors and ensure you're using a modern browser like Chrome or Firefox.</p>
+    </div>
+
+    <!-- Router View (Dynamic Sections) -->
+    <router-view v-if="isMounted"></router-view>
 
     <!-- Modal for Tech Stack Details -->
     <div v-if="showModal" class="modal">
@@ -184,7 +327,7 @@
           <p class="mb-4"><strong>Experience:</strong> {{ selectedTech.experience }}</p>
           <p class="mb-4"><strong>Related Projects:</strong></p>
           <ul class="space-y-3">
-            <li v-for="project in selectedTech.projects" :key="project.name" class="modal-project project-item p-2">
+            <li v-for="project in selectedTech.projects" :key="project.name" class="modal-project project-item">
               <strong>{{ project.name }}</strong>: {{ project.description }}
             </li>
           </ul>
@@ -194,236 +337,454 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal for Gallery Image -->
+    <div v-if="showGalleryModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="text-2xl font-semibold neon-text">{{ selectedImage.title }}</h3>
+        </div>
+        <div class="modal-body">
+          <img :src="selectedImage.src" :alt="selectedImage.title" class="gallery-modal-img">
+          <p class="mt-4">{{ selectedImage.description }}</p>
+        </div>
+        <div class="modal-footer">
+          <button @click="closeGalleryModal" class="modal-close">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Vue Components -->
+  <!-- Scripts (Deferred to Load After DOM) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/vue-router@4.0.13/dist/vue-router.global.prod.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    const { createApp } = Vue;
-    const { createRouter, createWebHistory } = VueRouter;
+    // Ensure Vue and Vue Router are loaded before running the app
+    document.addEventListener('DOMContentLoaded', () => {
+      const { createApp } = Vue;
+      const { createRouter, createWebHashHistory } = VueRouter;
 
-    // Home Component
-    const Home = {
-      template: `
-        <div>
-          <header class="text-center my-12">
-            <h1 class="text-5xl font-bold neon-text glitch">
-              Hi, I'm <span class="text-blue-400">Mubita Mapulanga</span>
-            </h1>
-            <h2 class="text-2xl mt-4 flicker" v-text="currentTitle"></h2>
-          </header>
-          <section class="glass p-8 max-w-4xl mx-auto my-12">
-            <h3 class="text-2xl font-semibold mb-4 neon-text">About Me</h3>
-            <p class="text-lg">
-              I am an AI developer passionate about building intelligent, responsive, and impactful systems. From mobile apps to smart systems and decentralized platforms, I use tech to solve real-world problems.
-            </p>
-          </section>
-          <section class="glass p-8 max-w-4xl mx-auto my-12">
-            <h3 class="text-2xl font-semibold mb-6 neon-text">Tech Stack</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <span v-for="tech in techStack" :key="tech.name" class="tech-chip px-4 py-2 rounded text-center" @click="showTechDetails(tech)">{{ tech.name }}</span>
-            </div>
-          </section>
-          <section class="glass p-8 max-w-4xl mx-auto my-12">
-            <h3 class="text-2xl font-semibold mb-6 neon-text">Featured Projects</h3>
-            <ul class="space-y-4">
-              <li v-for="project in projects" :key="project.name" class="project-item p-2">
-                <strong>{{ project.name }}</strong>: {{ project.description }}
-              </li>
-            </ul>
-          </section>
-          <section class="glass p-8 max-w-4xl mx-auto my-12 text-center">
-            <h3 class="text-2xl font-semibold mb-4 neon-text">Contact Me</h3>
-            <p>Email: <a href="mailto:mubita@example.com" class="text-blue-400 hover:underline">mubita@example.com</a></p>
-            <p>GitHub: <a href="https://github.com/yourusername" class="text-blue-400 hover:underline">github.com/yourusername</a></p>
-          </section>
-        </div>
-      `,
-      data() {
-        return {
-          titles: ['AI Developer', 'App Builder', 'Tech Innovator', 'Smart Systems Engineer'],
-          currentTitleIndex: 0,
-          techStack: [
-            {
-              name: 'Flutter',
-              experience: '3 years',
-              projects: [
-                { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
-                { name: 'Smart Water Tank Monitoring', description: 'IoT system using ESP8266, sensors, and a mobile app.' },
-              ],
-            },
-            {
-              name: 'Firebase',
-              experience: '3 years',
-              projects: [
-                { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
-                { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
-                { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
-              ],
-            },
-            {
-              name: 'Java',
-              experience: '4 years',
-              projects: [
-                { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
-              ],
-            },
-            {
-              name: 'React Native',
-              experience: '2 years',
-              projects: [
-                { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
-              ],
-            },
-            {
-              name: 'Vue.js',
-              experience: '2 years',
-              projects: [
-                { name: 'Personal Portfolio', description: 'This interactive portfolio website.' },
-              ],
-            },
-            {
-              name: 'Python',
-              experience: '5 years',
-              projects: [
-                { name: 'Smart Doctor', description: 'Health data integration system with wearable data and EHR.' },
-              ],
-            },
-            {
-              name: 'HTML/CSS/JS',
-              experience: '5 years',
-              projects: [
-                { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
-                { name: 'Personal Portfolio', description: 'This interactive portfolio website.' },
-              ],
-            },
-            {
-              name: 'Motoko',
-              experience: '1 year',
-              projects: [
-                { name: 'Decentralized App Prototype', description: 'A prototype for a decentralized application using Motoko.' },
-              ],
-            },
-          ],
-          projects: [
-            { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
-            { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
-            { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
-            { name: 'Smart Water Tank Monitoring', description: 'IoT system using ESP8266, sensors, and a mobile app.' },
-            { name: 'Smart Doctor', description: 'Health data integration system with wearable data and EHR.' },
-          ],
-        };
-      },
-      computed: {
-        currentTitle() {
-          return this.titles[this.currentTitleIndex];
+      // Home Component (Profile)
+      const Home = {
+        template: `
+          <div>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-4 neon-text">About Me</h3>
+              <p class="text-lg secondary-text leading-relaxed">
+                I am an AI developer passionate about building intelligent, responsive, and impactful systems. From mobile apps to smart systems and decentralized platforms, I use technology to solve real-world problems with a focus on innovation and efficiency.
+              </p>
+            </section>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-6 neon-text">Featured Projects</h3>
+              <ul class="space-y-4">
+                <li v-for="project in projects" :key="project.name" class="project-item">
+                  <strong>{{ project.name }}</strong>: <span class="secondary-text">{{ project.description }}</span>
+                </li>
+              </ul>
+            </section>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-6 neon-text">Project Gallery</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <img v-for="image in galleryImages" :key="image.src" :src="image.src" :alt="image.title" class="gallery-img" @click="showImageDetails(image)">
+              </div>
+            </section>
+            <section class="glass max-w-5xl text-center">
+              <h3 class="text-2xl font-semibold mb-4 neon-text">Contact Me</h3>
+              <p class="secondary-text">Email: <a href="mailto:mubita@example.com" class="text-blue-400 hover:underline">mubita@example.com</a></p>
+              <p class="secondary-text">GitHub: <a href="https://github.com/yourusername" class="text-blue-400 hover:underline">github.com/yourusername</a></p>
+            </section>
+          </div>
+        `,
+        data() {
+          return {
+            projects: [
+              { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+              { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
+              { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
+              { name: 'Smart Water Tank Monitoring', description: 'IoT system using ESP8266, sensors, and a mobile app.' },
+              { name: 'Smart Doctor', description: 'Health data integration system with wearable data and EHR.' },
+            ],
+            galleryImages: [
+              {
+                src: 'https://via.placeholder.com/300x200?text=Ulimi',
+                title: 'Ulimi Platform',
+                description: 'Screenshot of the Ulimi agri-platform interface.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=LookupPlant',
+                title: 'LookupPlant App',
+                description: 'Mobile view of the LookupPlant Android app.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Emergency+App',
+                title: 'Emergency Response App',
+                description: 'Real-time alert interface for the Emergency Response App.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Water+Tank',
+                title: 'Smart Water Tank',
+                description: 'IoT dashboard for the Smart Water Tank Monitoring system.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Smart+Doctor',
+                title: 'Smart Doctor',
+                description: 'Health data visualization from the Smart Doctor system.',
+              },
+            ],
+          };
         },
-      },
-      mounted() {
-        this.startTypingEffect();
-      },
-      methods: {
-        startTypingEffect() {
-          setInterval(() => {
-            this.currentTitleIndex = (this.currentTitleIndex + 1) % this.titles.length;
-          }, 3000);
+        methods: {
+          showImageDetails(image) {
+            this.$root.selectedImage = image;
+            this.$root.showGalleryModal = true;
+          },
         },
-        showTechDetails(tech) {
-          this.$root.selectedTech = tech;
-          this.$root.showModal = true;
+      };
+
+      // Skills Component
+      const Skills = {
+        template: `
+          <div>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-6 neon-text">Tech Stack</h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <span v-for="tech in techStack" :key="tech.name" class="tech-chip" @click="showTechDetails(tech)">{{ tech.name }}</span>
+              </div>
+            </section>
+          </div>
+        `,
+        data() {
+          return {
+            techStack: [
+              {
+                name: 'Flutter',
+                experience: '3 years',
+                projects: [
+                  { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+                  { name: 'Smart Water Tank Monitoring', description: 'IoT system using ESP8266, sensors, and a mobile app.' },
+                ],
+              },
+              {
+                name: 'Firebase',
+                experience: '3 years',
+                projects: [
+                  { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+                  { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
+                  { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
+                ],
+              },
+              {
+                name: 'Java',
+                experience: '4 years',
+                projects: [
+                  { name: 'LookupPlant', description: 'Android app for plant info with Java and Firebase.' },
+                ],
+              },
+              {
+                name: 'React Native',
+                experience: '2 years',
+                projects: [
+                  { name: 'Emergency Response App', description: 'Real-time alerts and communication system using React Native and Firebase.' },
+                ],
+              },
+              {
+                name: 'Vue.js',
+                experience: '2 years',
+                projects: [
+                  { name: 'Personal Portfolio', description: 'This interactive portfolio website.' },
+                ],
+              },
+              {
+                name: 'Python',
+                experience: '5 years',
+                projects: [
+                  { name: 'Smart Doctor', description: 'Health data integration system with wearable data and EHR.' },
+                ],
+              },
+              {
+                name: 'HTML/CSS/JS',
+                experience: '5 years',
+                projects: [
+                  { name: 'Ulimi', description: 'A smart agri-platform for vendor content, crop sales, weather, and news.' },
+                  { name: 'Personal Portfolio', description: 'This interactive portfolio website.' },
+                ],
+              },
+              {
+                name: 'Motoko',
+                experience: '1 year',
+                projects: [
+                  { name: 'Decentralized App Prototype', description: 'A prototype for a decentralized application using Motoko.' },
+                ],
+              },
+            ],
+          };
         },
-      },
-    };
-
-    // Events Component
-    const Events = {
-      template: `
-        <div>
-          <header class="text-center my-12">
-            <h1 class="text-5xl font-bold neon-text glitch">Tech Events</h1>
-            <p class="text-lg mt-4 flicker">Upcoming and past tech events I've attended or organized</p>
-          </header>
-          <section class="glass p-8 max-w-4xl mx-auto my-12">
-            <h3 class="text-2xl font-semibold mb-6 neon-text">Event Highlights</h3>
-            <ul class="space-y-4">
-              <li v-for="event in events" :key="event.title" class="event-item p-2">
-                <strong>{{ event.title }}</strong> ({{ event.date }}): {{ event.description }}
-              </li>
-            </ul>
-          </section>
-        </div>
-      `,
-      data() {
-        return {
-          events: [
-            {
-              title: 'AI Summit 2025',
-              date: 'March 15, 2025',
-              description: 'Presented a talk on AI-driven agricultural platforms and networked with global AI innovators.',
-            },
-            {
-              title: 'IoT Hackathon',
-              date: 'January 20, 2025',
-              description: 'Led a team to develop a smart water monitoring system, winning first place.',
-            },
-            {
-              title: 'Decentralized Tech Meetup',
-              date: 'November 10, 2024',
-              description: 'Organized a meetup to discuss Motoko and decentralized app development.',
-            },
-            {
-              title: 'Mobile Dev Conference',
-              date: 'September 5, 2024',
-              description: 'Showcased LookupPlant and discussed cross-platform development with Flutter and React Native.',
-            },
-          ],
-        };
-      },
-    };
-
-    // Router Setup
-    const router = createRouter({
-      history: createWebHistory(),
-      routes: [
-        { path: '/', component: Home },
-        { path: '/events', component: Events },
-      ],
-    });
-
-    // Vue App
-    const app = createApp({
-      data() {
-        return {
-          showModal: false,
-          selectedTech: null,
-        };
-      },
-      methods: {
-        closeModal() {
-          this.showModal = false;
-          this.selectedTech = null;
+        methods: {
+          showTechDetails(tech) {
+            this.$root.selectedTech = tech;
+            this.$root.showModal = true;
+          },
         },
-      },
-    });
-    app.use(router);
-    app.mount('#app');
+      };
 
-    // Particles.js Initialization
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: '#00f6ff' },
-        shape: { type: 'circle' },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: '#8b00ff', opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 2, direction: 'none', random: true },
-      },
-      interactivity: {
-        detect_on: 'canvas',
-        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
-        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } },
-      },
-      retina_detect: true,
+      // Career Component (Events)
+      const Career = {
+        template: `
+          <div>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-6 neon-text">Event Highlights</h3>
+              <ul class="space-y-4">
+                <li v-for="event in events" :key="event.title" class="event-item">
+                  <strong>{{ event.title }}</strong> ({{ event.date }}): <span class="secondary-text">{{ event.description }}</span>
+                </li>
+              </ul>
+            </section>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-6 neon-text">Event Gallery</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <img v-for="image in eventGalleryImages" :key="image.src" :src="image.src" :alt="image.title" class="gallery-img" @click="showImageDetails(image)">
+              </div>
+            </section>
+          </div>
+        `,
+        data() {
+          return {
+            events: [
+              {
+                title: 'AI Summit 2025',
+                date: 'March 15, 2025',
+                description: 'Presented a talk on AI-driven agricultural platforms and networked with global AI innovators.',
+              },
+              {
+                title: 'IoT Hackathon',
+                date: 'January 20, 2025',
+                description: 'Led a team to develop a smart water monitoring system, winning first place.',
+              },
+              {
+                title: 'Decentralized Tech Meetup',
+                date: 'November 10, 2024',
+                description: 'Organized a meetup to discuss Motoko and decentralized app development.',
+              },
+              {
+                title: 'Mobile Dev Conference',
+                date: 'September 5, 2024',
+                description: 'Showcased LookupPlant and discussed cross-platform development with Flutter and React Native.',
+              },
+            ],
+            eventGalleryImages: [
+              {
+                src: 'https://via.placeholder.com/300x200?text=AI+Summit',
+                title: 'AI Summit 2025',
+                description: 'Presenting at the AI Summit 2025 on AI-driven agricultural platforms.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=IoT+Hackathon',
+                title: 'IoT Hackathon',
+                description: 'Team collaboration during the IoT Hackathon 2025.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Decentralized+Meetup',
+                title: 'Decentralized Tech Meetup',
+                description: 'Organizing the Decentralized Tech Meetup in 2024.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Mobile+Dev',
+                title: 'Mobile Dev Conference',
+                description: 'Showcasing LookupPlant at the Mobile Dev Conference 2024.',
+              },
+            ],
+          };
+        },
+        methods: {
+          showImageDetails(image) {
+            this.$root.selectedImage = image;
+            this.$root.showGalleryModal = true;
+          },
+        },
+      };
+
+      // Awards Component (Gallery)
+      const Awards = {
+        template: `
+          <div>
+            <section class="glass max-w-5xl">
+              <h3 class="text-2xl font-semibold mb-6 neon-text">Gallery</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <img v-for="image in galleryImages" :key="image.src" :src="image.src" :alt="image.title" class="gallery-img" @click="showImageDetails(image)">
+              </div>
+            </section>
+          </div>
+        `,
+        data() {
+          return {
+            galleryImages: [
+              {
+                src: 'https://via.placeholder.com/300x200?text=Ulimi',
+                title: 'Ulimi Platform',
+                description: 'Screenshot of the Ulimi agri-platform interface.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=LookupPlant',
+                title: 'LookupPlant App',
+                description: 'Mobile view of the LookupPlant Android app.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Emergency+App',
+                title: 'Emergency Response App',
+                description: 'Real-time alert interface for the Emergency Response App.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Water+Tank',
+                title: 'Smart Water Tank',
+                description: 'IoT dashboard for the Smart Water Tank Monitoring system.',
+              },
+              {
+                src: 'https://via.placeholder.com/300x200?text=Smart+Doctor',
+                title: 'Smart Doctor',
+                description: 'Health data visualization from the Smart Doctor system.',
+              },
+            ],
+          };
+        },
+        methods: {
+          showImageDetails(image) {
+            this.$root.selectedImage = image;
+            this.$root.showGalleryModal = true;
+          },
+        },
+      };
+
+      // Router Setup with Hash Mode
+      const router = createRouter({
+        history: createWebHashHistory(),
+        routes: [
+          { path: '/', component: Home },
+          { path: '/skills', component: Skills },
+          { path: '/career', component: Career },
+          { path: '/awards', component: Awards },
+        ],
+      });
+
+      // Log routing events for debugging
+      router.beforeEach((to, from, next) => {
+        console.log('Navigating to:', to.path);
+        next();
+      });
+      router.afterEach((to) => {
+        console.log('Navigation completed to:', to.path);
+        // Update active link styles
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('data-route') === to.path) {
+            link.classList.add('active');
+          }
+        });
+      });
+
+      // Vue App
+      let appMounted = false;
+      const app = createApp({
+        data() {
+          return {
+            showModal: false,
+            selectedTech: null,
+            showGalleryModal: false,
+            selectedImage: null,
+            isMounted: false,
+          };
+        },
+        methods: {
+          closeModal() {
+            this.showModal = false;
+            this.selectedTech = null;
+          },
+          closeGalleryModal() {
+            this.showGalleryModal = false;
+            this.selectedImage = null;
+          },
+        },
+        mounted() {
+          try {
+            this.isMounted = true;
+            appMounted = true;
+            console.log('Vue app mounted successfully.');
+          } catch (error) {
+            console.error('Failed to mount Vue app:', error);
+            this.isMounted = false;
+          }
+        },
+      });
+
+      // Error Handling for Router
+      router.onError((error) => {
+        console.error('Router error:', error);
+        appMounted = false;
+        app.isMounted = false;
+      });
+
+      // Mount the App
+      try {
+        app.use(router);
+        app.mount('#app');
+      } catch (error) {
+        console.error('Error mounting app:', error);
+        appMounted = false;
+      }
+
+      // Particles.js Initialization
+      try {
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#00f6ff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: { enable: true, distance: 150, color: '#8b00ff', opacity: 0.4, width: 1 },
+            move: { enable: true, speed: 2, direction: 'none', random: true },
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+            modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } },
+          },
+          retina_detect: true,
+        });
+      } catch (error) {
+        console.error('Failed to initialize Particles.js:', error);
+      }
+
+      // Handle static link clicks to trigger Vue Router navigation
+      let routerReady = false;
+      router.isReady().then(() => {
+        routerReady = true;
+        console.log('Vue Router is ready.');
+      }).catch(error => {
+        console.error('Vue Router failed to initialize:', error);
+      });
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const route = link.getAttribute('data-route');
+          console.log('Static link clicked, navigating to:', route);
+          if (routerReady) {
+            router.push(route).catch(error => {
+              console.error('Navigation error:', error);
+            });
+          } else {
+            console.warn('Router not ready, falling back to hash change');
+            window.location.hash = route;
+          }
+        });
+      });
+
+      // Additional Error Logging
+      window.onerror = function(message, source, lineno, colno, error) {
+        console.error('Global error:', { message, source, lineno, colno, error });
+        return true;
+      };
     });
   </script>
 </body>
